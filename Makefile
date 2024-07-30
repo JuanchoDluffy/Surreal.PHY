@@ -26,3 +26,5 @@ $(TARGET): $(OBJ)
 # Clean rule
 clean:
 	rm -f $(TARGET) $(OBJ) $(DEP)
+Run:
+	./$(TARGET)

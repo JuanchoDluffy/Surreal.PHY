@@ -16,6 +16,28 @@ RenderWindow::RenderWindow(const char* title,int width, int height){
         std::cout<<"renderer did not init. Error:"<< SDL_GetError()<<std::endl;
     }
 }
+SDL_Texture* RenderWindow::loadTexture(const char* filePath){
+    SDL_Texture* texture =NULL;
+    texture =IMG_LoadTexture(renderer,filePath);
+    if (texture!= NULL){
+        return texture;
+
+    }else{
+        std::cout<<"Texture did not init. Error:"<< SDL_GetError()<<std::endl;
+        return NULL;
+    }
+}
+
+void RenderWindow::clear(){
+    SDL_RenderClear(renderer);
+}
+
+void RenderWindow::render(SDL_Texture *texture){
+    SDL_RenderCopy(renderer,texture,NULL,NULL);
+}
+void RenderWindow::display(){
+    SDL_RenderPresent(renderer);
+}
 
 void RenderWindow::CleanUp() {
     if (renderer != nullptr) {
