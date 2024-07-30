@@ -1,19 +1,15 @@
 #include <SDL.h>
+#include <SDL_image.h>
 #include <iostream>
+#include "RenderWindow.hpp"
 int main(){
-    SDL_Window* window = nullptr;
-    SDL_Renderer* renderer = nullptr;
 
     SDL_Init(SDL_INIT_VIDEO);
-    SDL_CreateWindowAndRenderer(640,480,0, &window,&renderer);
+    if(!(IMG_Init(IMG_INIT_PNG))){
+        std::cout<<"SDL IMAGE FAILED"<< SDL_GetError()<<std::endl;
+    }// check if image is working
 
-    SDL_SetRenderDrawColor(renderer,0,0,0,255);
-    SDL_RenderClear(renderer);
-
-    SDL_SetRenderDrawColor(renderer,255,255,255,255);
-    SDL_RenderDrawPoint(renderer,640/2,480/2);
-
-    SDL_RenderPresent(renderer);
+    RenderWindow window("FristWindow 0.1",1280,700);
     bool running = true;
     SDL_Event event;
     while (running) {
@@ -24,9 +20,7 @@ int main(){
         }
         SDL_Delay(100); // Delay to prevent high CPU usage
     }
-
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
+    window.CleanUp();
     SDL_Quit();
     std::cout << "SDL Cleaned Up" << std::endl;
 }
